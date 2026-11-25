@@ -1,0 +1,20 @@
+{
+  "model": "Qwen/Qwen3.5-4B",
+  "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+  "data": "data/prepared",
+  "output": "runs/qwen35",
+  "context": 2048,
+  "seed": 42,
+  "learning_rate": 0.0001,
+  "gradient_accumulation": 16,
+  "eval_steps": 500,
+  "wandb": {
+    "enabled": true,
+    "project": "novaya-qwen35",
+    "token_file": ".wandb/token",
+    "mode": "online"
+  },
+  "source_revision": "06fa3fe0a9e703e45308f5b6f94fe8f497b28659",
+  "recovery_save_steps": 50,
+  "micro_batch_size": 1
+}

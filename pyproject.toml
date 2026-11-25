@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "novaya-sft"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = ["PyYAML>=6", "torch>=2.6", "transformers>=5.2", "peft>=0.18", "bitsandbytes>=0.49", "datasets>=4", "accelerate>=1.10", "wandb>=0.19", "tqdm>=4.66"]
+[project.optional-dependencies]
+kernels = ["flash-linear-attention>=0.6"]
+[project.scripts]
+novaya = "novaya.cli:main"
+[tool.setuptools.packages.find]
+include = ["novaya*"]

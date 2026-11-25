@@ -1,0 +1,102 @@
+{
+  "summary": {
+    "00": {
+      "voice": 6,
+      "coherence": 21,
+      "words_median": 98.5,
+      "in_range": 8,
+      "missing": 36,
+      "with_inventions": 7,
+      "inventions": 22
+    },
+    "10": {
+      "voice": 4,
+      "coherence": 20,
+      "words_median": 100.5,
+      "in_range": 6,
+      "missing": 42,
+      "with_inventions": 9,
+      "inventions": 29
+    },
+    "01": {
+      "voice": 3,
+      "coherence": 14,
+      "words_median": 115.0,
+      "in_range": 3,
+      "missing": 44,
+      "with_inventions": 11,
+      "inventions": 33
+    },
+    "11": {
+      "voice": 2,
+      "coherence": 13,
+      "words_median": 107.0,
+      "in_range": 3,
+      "missing": 77,
+      "with_inventions": 9,
+      "inventions": 33
+    }
+  },
+  "paired": {
+    "10_vs_00": {
+      "voice": {
+        "wins": 1,
+        "ties": 8,
+        "losses": 3
+      },
+      "coherence": {
+        "wins": 1,
+        "ties": 9,
+        "losses": 2
+      }
+    },
+    "01_vs_00": {
+      "voice": {
+        "wins": 1,
+        "ties": 7,
+        "losses": 4
+      },
+      "coherence": {
+        "wins": 0,
+        "ties": 7,
+        "losses": 5
+      }
+    },
+    "11_vs_10": {
+      "voice": {
+        "wins": 1,
+        "ties": 8,
+        "losses": 3
+      },
+      "coherence": {
+        "wins": 1,
+        "ties": 4,
+        "losses": 7
+      }
+    },
+    "11_vs_01": {
+      "voice": {
+        "wins": 2,
+        "ties": 7,
+        "losses": 3
+      },
+      "coherence": {
+        "wins": 4,
+        "ties": 3,
+        "losses": 5
+      }
+    },
+    "11_vs_00": {
+      "voice": {
+        "wins": 1,
+        "ties": 6,
+        "losses": 5
+      },
+      "coherence": {
+        "wins": 1,
+        "ties": 4,
+        "losses": 7
+      }
+    }
+  }
+}

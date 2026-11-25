@@ -1,0 +1,76 @@
+#!.venv/bin/python
+import argparse
+import json
+import logging
+import sys
+import tempfile
+from pathlib import Path
+
+
+SYSTEM_PROMPT = (
+    "Ты помощник в диалоге. Отвечай по существу на языке пользователя "
+    "и соблюдай запрошенный формат. Начинай с ответа на вопрос. "
+    "Пиши статью, интервью или редакционную заметку только по явной просьбе. "
+    "Не выдумывай факты, цитаты или источники. "
+    "Если чего-то не знаешь, скажи об этом прямо."
+)
+
+
+def print_answer(answer):
+    if not sys.stdout.isatty():
+        print(answer)
+        return
+
+    from rich.console import Console
+    from rich.markdown import Markdown
+    from rich.panel import Panel
+
+    Console().print(Panel(Markdown(answer), title="Ответ модели", border_style="cyan"))
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Ask the fine-tuned Qwen model a question.")
+    parser.add_argument("text", nargs="+", help="Message to send to the model")
+    parser.add_argument("--base", action="store_true", help="Run without the adapter")
+    parser.add_argument("--raw", action="store_true", help="Omit the system message")
+    args = parser.parse_args()
+
+    import torch
+    from transformers.utils.logging import disable_progress_bar
+
+    from novaya.model import load
+
+    disable_progress_bar()
+    logging.getLogger("fla.utils.env").addFilter(
+        lambda record: not record.getMessage().startswith("Current Python version ")
+    )
+
+    root = Path(__file__).resolve().parent
+    config = json.loads((root / "configs/default.json").read_text())
+    adapter = None if args.base else str(root / "runs/qwen35/adapter")
+    with tempfile.TemporaryDirectory(prefix="novaya-chat-") as output:
+        config["output"] = output
+        model, tokenizer = load(config, adapter)
+        model.eval()
+        messages = [] if args.raw else [{"role": "system", "content": SYSTEM_PROMPT}]
+        messages.append({"role": "user", "content": " ".join(args.text)})
+        ids = tokenizer.apply_chat_template(
+            messages,
+            tokenize=True, return_dict=False, add_generation_prompt=True,
+            enable_thinking=False, return_tensors="pt",
+        ).to(model.device)
+        budget = config["context"] - ids.shape[-1]
+        if budget <= 0:
+            parser.error("Message exceeds the model context; shorten it and try again.")
+        with torch.inference_mode(), torch.autocast("cuda", dtype=torch.bfloat16):
+            result = model.generate(
+                input_ids=ids, attention_mask=torch.ones_like(ids),
+                max_new_tokens=min(256, budget), do_sample=True,
+                temperature=0.7, top_p=0.8, top_k=20, use_cache=True,
+                pad_token_id=tokenizer.pad_token_id,
+            )
+        print_answer(tokenizer.decode(result[0, ids.shape[-1]:], skip_special_tokens=True).strip())
+
+
+if __name__ == "__main__":
+    main()

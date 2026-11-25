@@ -1,0 +1,117 @@
+{
+  "model": "Qwen/Qwen3.5-4B",
+  "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+  "data": "runs/editorial/original-cards-expanded-qlora/data",
+  "output": "runs/editorial/original-cards-expanded-qlora-3epochs/run",
+  "context": 2048,
+  "seed": 42,
+  "learning_rate": 3e-05,
+  "gradient_accumulation": 16,
+  "eval_steps": 500,
+  "wandb": {
+    "enabled": true,
+    "project": "novaya-qwen35",
+    "token_file": ".wandb/token",
+    "mode": "online",
+    "name": "original-cards-expanded-fragment-3epochs"
+  },
+  "source_revision": "06fa3fe0a9e703e45308f5b6f94fe8f497b28659",
+  "recovery_save_steps": 50,
+  "micro_batch_size": 1,
+  "editorial": {
+    "variant": "original-cards-expanded-fragment",
+    "counts": {
+      "editorial": 428,
+      "dialogues": 107,
+      "validation": 69
+    },
+    "dialogue_fraction": 0.2,
+    "dialogue_manifest": {
+      "sources": [
+        {
+          "source": "https://huggingface.co/datasets/OpenAssistant/oasst2",
+          "license": "Apache-2.0",
+          "revision": "179dd21",
+          "context": 2048,
+          "seed": 42,
+          "splits": {
+            "train": {
+              "count": 881,
+              "input_sha256": "9638227b41b0a4fb69afa5d5c4b52e3fb6abfd56c9870d81bae32c9981e769b1",
+              "fingerprints_sha256": "08a724199f86f4085eaaf364c58bb2f95fb8164c8e2880d684d2feefe3aa6340"
+            },
+            "validation": {
+              "count": 49,
+              "input_sha256": "fd46c63babc0756909a957ee40975bcf5610d58c5d1ab5ff2c57c0f57be1f273",
+              "fingerprints_sha256": "64237af0cc9f643c216fd43049cec56512e52c3237f43d66b36739a1e6078c67"
+            }
+          },
+          "approved_count": 45,
+          "review_sha256": "de2b8eae9f884e91c62099fd400c795186eee681b0a652369cc71ead2b24a301"
+        },
+        {
+          "source": "https://huggingface.co/datasets/CohereLabs/aya_dataset",
+          "license": "Apache-2.0",
+          "revision": "f251eb4889a9f56f856c658460aad8087d3ca919",
+          "context": 2048,
+          "seed": 42,
+          "splits": {
+            "train": {
+              "count": 267,
+              "input_sha256": "0ec28795ca6644fa84443caacf481c9e27d9bb0aec118aa4efa4fd07aa4330b0",
+              "fingerprints_sha256": "26efd99feb2baf155517279e5675d40e5dec5e8370c5fb0984d014045d8edbaa"
+            },
+            "validation": {
+              "count": 83,
+              "input_sha256": "0ec28795ca6644fa84443caacf481c9e27d9bb0aec118aa4efa4fd07aa4330b0",
+              "fingerprints_sha256": "07d39ea68782258d92cc74af5b14f3d44268e9d68d5f56b73707c273c5230d64"
+            }
+          },
+          "approved_count": 61,
+          "review_sha256": "392af33e6e951163e48882d3c69634aa0f1b0abd19311b4548ed7a5681e8abbe"
+        },
+        {
+          "source": "https://huggingface.co/datasets/dim/databricks_dolly_15k_ru",
+          "license": "CC-BY-SA-3.0",
+          "revision": "189db4d",
+          "context": 2048,
+          "seed": 42,
+          "splits": {
+            "train": {
+              "count": 14599,
+              "input_sha256": "f606c4a1432ebf4e16cb63738848154719747149319d03f339fcd1a44a0c952d",
+              "fingerprints_sha256": "86d37d489fcc64c999a3114d93a4b95583146f657a8353ad406b642d628802d6"
+            },
+            "validation": {
+              "count": 0,
+              "input_sha256": "f606c4a1432ebf4e16cb63738848154719747149319d03f339fcd1a44a0c952d",
+              "fingerprints_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+            }
+          },
+          "approved_count": 725,
+          "review_sha256": "f545ee15e0f9bb2e0cdc8594e04d71e87b847db130d0c428a7031ef7390696e4"
+        }
+      ],
+      "exported_split": "train",
+      "exported_count": 800,
+      "export_sha256": "9bac01d6eb048dbf511e9c90a05f6f4f45917d18ec3f7df6e93af8a2b627b438"
+    },
+    "added_editorial_train": 120,
+    "previous_config": "runs/editorial/qwen38-style-mining-expanded-600/qlora/fragment/config.json",
+    "hashes": {
+      "train": "ac437b0153cbac1232e1c3337d54a8b5c04d97714f3e34770a8da7eb0a6835c9",
+      "validation": "322b19b0c92ba7b21ec377fc8fcff99bcde4f67bb94a07589918797fb6c8cb64",
+      "intermediate": "322b19b0c92ba7b21ec377fc8fcff99bcde4f67bb94a07589918797fb6c8cb64"
+    },
+    "inputs": {
+      "runs/editorial/qwen38-slots-benchmark/slots-2/candidates.jsonl": "fd5791fca453313c8a9b3d423f1bc18f6673072d74897b0b03fba64b360524b6",
+      "runs/editorial/qwen38-style-mining-no-overlap-remaining/candidates.jsonl": "219068f9be0c8e2647f2e4245f4a76afbadfbbcaacf706210737daf4140c14ff",
+      "runs/editorial/qwen38-style-mining-expanded-600/candidates.jsonl": "3bc2da7b62c6f37c78face0c54f89e0947c88de9ec36d07d0ee9bebb295e987c",
+      "runs/editorial/qwen38-style-mining-120/sample.jsonl": "150e4e43e0e8fa5e1cbc3d84f0f7986abf38dafc094c7472d8ec21240ae9372c",
+      "runs/editorial/qwen38-style-mining-expanded-600/sample.jsonl": "a0cf0a2bed7ab98240103078568f3980094bb78a0cf302e73f659272bff16656",
+      "runs/editorial/qwen38-style-mining-expanded-600/paired-review.jsonl": "b7f396039f723f7f29c7cf7932a348ae5c78ede7525d5523bf7b6853eedb338d",
+      "data/dialogues.jsonl": "9bac01d6eb048dbf511e9c90a05f6f4f45917d18ec3f7df6e93af8a2b627b438"
+    }
+  },
+  "epochs": 3
+}
